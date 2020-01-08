@@ -22,17 +22,19 @@ public class Rocket : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Space))
         {
-            print("Speeding up");
+            // print("Speeding up");
             this._rigidbody.AddRelativeForce(new Vector3(0f, 10f, 0f));
         }
 
         if (Input.GetKey(KeyCode.A))
         {
-            print("Rotating left");
+            // print("Rotating left");
+            this.transform.Rotate(Vector3.forward);
         }
         else if (Input.GetKey(KeyCode.D))
         {
-            print("Rotating right");
+            // print("Rotating right");
+            this.transform.Rotate(-Vector3.forward);
         }
     }
 }
