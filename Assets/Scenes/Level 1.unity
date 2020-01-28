@@ -220,7 +220,7 @@ PrefabInstance:
     - target: {fileID: 3766645571460858772, guid: f89f6a0e4c92fb244a181caf82bcb1ce,
         type: 3}
       propertyPath: m_BoundingSphereOverride.w
-      value: 4e-45
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3766645571460858773, guid: f89f6a0e4c92fb244a181caf82bcb1ce,
         type: 3}
