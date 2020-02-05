@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Rocket : MonoBehaviour
 {
@@ -10,12 +11,14 @@ public class Rocket : MonoBehaviour
     Rigidbody _rigidbody;
     AudioSource _audio;
 
+    int _currentSceneIndex;
 
     // Start is called before the first frame update
     void Start()
     {
         this._rigidbody = GetComponent<Rigidbody>();
         this._audio = GetComponent<AudioSource>();
+        this._currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
     }
 
     // Update is called once per frame
@@ -31,6 +34,10 @@ public class Rocket : MonoBehaviour
         {
             case "Friendly":
                 print("good");
+                break;
+            case "Finish":
+                print("finish");
+                SceneManager.LoadScene(this._currentSceneIndex + 1);
                 break;
             default:
                 print("bad");
