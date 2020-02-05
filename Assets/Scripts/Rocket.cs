@@ -48,7 +48,7 @@ public class Rocket : MonoBehaviour
                 break;
             default:
                 this._state = State.Dying;
-                Invoke("LoadFirstLevel", .deathDelay);
+                Invoke("LoadFirstLevel", deathDelay);
                 break;
         }
     }
