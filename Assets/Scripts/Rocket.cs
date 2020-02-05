@@ -7,11 +7,16 @@ public class Rocket : MonoBehaviour
 {
     [SerializeField] float thrustSpeed = 20f;
     [SerializeField] float rotationSpeed = 100f;
+    [SerializeField] float levelDelay = 1f;
+    [SerializeField] float deathDelay = .5f;
 
     Rigidbody _rigidbody;
     AudioSource _audio;
 
     int _currentSceneIndex;
+
+    enum State { Alive, Dying, Transcending }
+    State _state = State.Alive;
 
     // Start is called before the first frame update
     void Start()
@@ -30,17 +35,20 @@ public class Rocket : MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {
+        if (this._state != State.Alive) { return; }
+
         switch (other.gameObject.tag)
         {
             case "Friendly":
                 print("good");
                 break;
             case "Finish":
-                print("finish");
-                SceneManager.LoadScene(this._currentSceneIndex + 1);
+                this._state = State.Transcending;
+                Invoke("LoadNextLevel", levelDelay);
                 break;
             default:
-                print("bad");
+                this._state = State.Dying;
+                Invoke("LoadFirstLevel", .deathDelay);
                 break;
         }
     }
@@ -74,5 +82,15 @@ public class Rocket : MonoBehaviour
         {
             this.transform.Rotate(-rotationThisFrame);
         }
+    }
+
+    private void LoadNextLevel()
+    {
+        SceneManager.LoadScene(this._currentSceneIndex + 1);
+    }
+
+    private void LoadFirstLevel()
+    {
+        SceneManager.LoadScene(0);
     }
 }
