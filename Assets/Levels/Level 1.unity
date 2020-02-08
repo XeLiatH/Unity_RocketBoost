@@ -96,6 +96,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
+    m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -945,12 +946,12 @@ PrefabInstance:
     - target: {fileID: 5452112796723444315, guid: 9b2c016511526e84e94a4d8e2d2a9d04,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -35
+      value: -34.841
       objectReference: {fileID: 0}
     - target: {fileID: 5452112796723444315, guid: 9b2c016511526e84e94a4d8e2d2a9d04,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 13.05
+      value: 14.372
       objectReference: {fileID: 0}
     - target: {fileID: 5452112796723444315, guid: 9b2c016511526e84e94a4d8e2d2a9d04,
         type: 3}
