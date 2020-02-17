@@ -61,7 +61,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 2b388a7a0723537489f95812cff84242, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 0.5
   m_Pitch: 1
@@ -163,6 +163,9 @@ MonoBehaviour:
   rotationSpeed: 100
   levelDelay: 1
   deathDelay: 0.5
+  mainEngineSFX: {fileID: 8300000, guid: d2e83a1f60c2a4d458b26620d04a43ca, type: 3}
+  deathSFX: {fileID: 8300000, guid: 82757100a884eab47b24f9ef683306a5, type: 3}
+  successSFX: {fileID: 8300000, guid: 06739603c06ff3842b506bc37da63d17, type: 3}
 --- !u!65 &1625660897
 BoxCollider:
   m_ObjectHideFlags: 0
