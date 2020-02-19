@@ -95,7 +95,7 @@ public class Rocket : MonoBehaviour
 
     private void ApplyThrust()
     {
-        this.rocketRigidbody.AddRelativeForce(Vector3.up * thrustSpeed);
+        this.rocketRigidbody.AddRelativeForce(Vector3.up * thrustSpeed * Time.deltaTime);
         if (!this.audioSource.isPlaying)
         {
             this.audioSource.PlayOneShot(this.mainEngineSFX);
