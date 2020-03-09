@@ -21,16 +21,15 @@ public class Rocket : MonoBehaviour
     Rigidbody rocketRigidbody;
     AudioSource audioSource;
 
-    int currentSceneIndex;
-
     enum State { Alive, Dying, Transcending }
     State state = State.Alive;
+
+    bool collisionsDisabled;
 
     void Start()
     {
         rocketRigidbody = GetComponent<Rigidbody>();
         audioSource = GetComponent<AudioSource>();
-        currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
     }
 
     void Update()
@@ -40,16 +39,21 @@ public class Rocket : MonoBehaviour
             RespondToThrustInput();
             RespondToRotateInput();
         }
+
+        if (Debug.isDebugBuild)
+        {
+            RespondToDebugKeys();
+        }
     }
 
     void OnCollisionEnter(Collision other)
     {
-        if (state != State.Alive) { return; }
+        if (state != State.Alive || collisionsDisabled) { return; }
 
         switch (other.gameObject.tag)
         {
             case "Friendly":
-                // do nothing, everything is ok
+                // do nothing
                 break;
             case "Finish":
                 StartSuccessProcess();
@@ -119,11 +123,31 @@ public class Rocket : MonoBehaviour
 
     void LoadNextLevel()
     {
-        SceneManager.LoadScene(currentSceneIndex + 1);
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        int nextSceneIndex = currentSceneIndex + 1;
+
+        if (nextSceneIndex == SceneManager.sceneCountInBuildSettings)
+        {
+            nextSceneIndex = 0;
+        }
+
+        SceneManager.LoadScene(nextSceneIndex);
     }
 
     void LoadFirstLevel()
     {
         SceneManager.LoadScene(0);
+    }
+
+    void RespondToDebugKeys()
+    {
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            LoadNextLevel();
+        }
+        else if (Input.GetKeyDown(KeyCode.C))
+        {
+            collisionsDisabled = !collisionsDisabled;
+        }
     }
 }
