@@ -21,10 +21,9 @@ public class Rocket : MonoBehaviour
     Rigidbody rocketRigidbody;
     AudioSource audioSource;
 
-    enum State { Alive, Dying, Transcending }
-    State state = State.Alive;
 
-    bool collisionsDisabled;
+    bool isTransitioning = false;
+    bool collisionsDisabled = false;
 
     void Start()
     {
@@ -34,7 +33,7 @@ public class Rocket : MonoBehaviour
 
     void Update()
     {
-        if (state == State.Alive)
+        if (!isTransitioning)
         {
             RespondToThrustInput();
             RespondToRotateInput();
@@ -48,7 +47,7 @@ public class Rocket : MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {
-        if (state != State.Alive || collisionsDisabled) { return; }
+        if (isTransitioning || collisionsDisabled) { return; }
 
         switch (other.gameObject.tag)
         {
@@ -66,7 +65,7 @@ public class Rocket : MonoBehaviour
 
     void StartSuccessProcess()
     {
-        state = State.Transcending;
+        isTransitioning = true;
         audioSource.Stop();
         audioSource.PlayOneShot(this.successSFX);
         successParticles.Play();
@@ -75,7 +74,7 @@ public class Rocket : MonoBehaviour
 
     void StartDeathProcess()
     {
-        state = State.Dying;
+        isTransitioning = true;
         audioSource.Stop();
         audioSource.PlayOneShot(deathSFX);
         deathParticles.Play();
@@ -90,8 +89,7 @@ public class Rocket : MonoBehaviour
         }
         else
         {
-            audioSource.Stop();
-            mainEngineParticles.Stop();
+            StopThrust();
         }
     }
 
@@ -106,9 +104,16 @@ public class Rocket : MonoBehaviour
         mainEngineParticles.Play();
     }
 
+    void StopThrust()
+    {
+        audioSource.Stop();
+        mainEngineParticles.Stop();
+    }
+
     void RespondToRotateInput()
     {
-        rocketRigidbody.freezeRotation = true; // take manual control of rotation
+        // remove rotation due to physics
+        rocketRigidbody.angularVelocity = Vector3.zero;
 
         Vector3 rotationThisFrame = Vector3.forward * rotationSpeed * Time.deltaTime;
         if (Input.GetKey(KeyCode.A))
