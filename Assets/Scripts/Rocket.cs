@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Rocket : MonoBehaviour
@@ -20,7 +18,6 @@ public class Rocket : MonoBehaviour
 
     Rigidbody rocketRigidbody;
     AudioSource audioSource;
-
 
     bool isTransitioning = false;
     bool collisionsDisabled = false;
